@@ -5,10 +5,10 @@ const TodoList = () => {
   return (
     <ul>
       <li>
-        <TodoListItem />
+        <TodoListItem text={'Wake up'} />
       </li>
       <li>
-        <TodoListItem />
+        <TodoListItem text={'Drink coffee'} />
       </li>
     </ul>
   );
