@@ -1,8 +1,9 @@
 import React from 'react';
-import TodoList from './TodoList';
 import AppHeader from './AppHeader';
 import SearchField from './SearchField';
 import ItemStatusFilter from './ItemStatusFilter';
+import TodoList from './TodoList';
+import SearchPanel from './SearchPanel';
 
 const todoData = [
   { id: 1, text: 'Wake Up' },
@@ -13,10 +14,11 @@ const todoData = [
 const App = () => {
   return (
     <div>
-      <AppHeader />
+      <AppHeader toDo={3} done={0} />
       <SearchField />
       <ItemStatusFilter />
       <TodoList todoData={todoData} />
+      <SearchPanel />
     </div>
   );
 };
