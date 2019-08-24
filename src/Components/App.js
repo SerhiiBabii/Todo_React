@@ -52,15 +52,50 @@ export default class App extends Component {
     });
   };
 
+  onToggleProperty(arr, id, propName) {
+    const index = arr.findIndex(el => el.id === id);
+    const oldItem = arr[index];
+    const newItem = {
+      ...oldItem,
+      [propName]: !oldItem[propName],
+    };
+
+    return [...arr.slice(0, index), newItem, ...arr.slice(index + 1)];
+  }
+
+  onToggleDone = id => {
+    this.setState(({ todoData }) => {
+      return {
+        todoData: this.onToggleProperty(todoData, id, 'done'),
+      };
+    });
+  };
+
+  onToggleImportant = id => {
+    this.setState(({ todoData }) => {
+      return {
+        todoData: this.this.onToggleProperty(todoData, id, 'important'),
+      };
+    });
+  };
+
   render() {
+    const { todoData } = this.state;
+    const doneQuantity = todoData.filter(el => el.done).length;
+    const todoQuantity = todoData.length - doneQuantity;
     return (
       <div className="todo-app">
-        <AppHeader toDo={3} done={0} />
+        <AppHeader toDo={todoQuantity} done={doneQuantity} />
         <div className="todo-panel d-flex">
           <SearchField />
           <ItemStatusFilter />
         </div>
-        <TodoList todoData={this.state.todoData} deleteItem={this.deleteItem} />
+        <TodoList
+          todoData={this.state.todoData}
+          deleteItem={this.deleteItem}
+          onToggleDone={this.onToggleDone}
+          onToggleImportant={this.onToggleImportant}
+        />
         <AddForm addItem={this.addItem} />
       </div>
     );
