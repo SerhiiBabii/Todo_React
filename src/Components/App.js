@@ -6,14 +6,24 @@ import TodoList from './TodoList';
 import SearchField from './SearchField';
 
 export default class App extends Component {
-  maxCount = 4;
+  maxCount = 1;
+
   state = {
     todoData: [
-      { id: 1, text: 'Wake Up', important: true, done: false },
-      { id: 2, text: 'Drink coffee', important: false, done: false },
-      { id: 3, text: 'Go to work', important: false, done: false },
+      this.createTodoItem('Wake Up'),
+      this.createTodoItem('Drink coffee'),
+      this.createTodoItem('Go to work'),
     ],
   };
+
+  createTodoItem(text) {
+    return {
+      id: this.maxCount++,
+      text: text,
+      important: false,
+      done: false,
+    };
+  }
 
   deleteItem = id => {
     this.setState(({ todoData }) => {
@@ -31,12 +41,7 @@ export default class App extends Component {
   };
 
   addItem = text => {
-    const newItem = {
-      id: this.maxCount++,
-      text: text,
-      important: false,
-      done: false,
-    };
+    const newItem = this.createTodoItem(text);
 
     this.setState(({ todoData }) => {
       const newArr = [...todoData, newItem];
